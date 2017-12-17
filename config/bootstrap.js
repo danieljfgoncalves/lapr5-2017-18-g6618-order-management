@@ -1,3 +1,5 @@
+var mockObject = require('../test/mock-objects');
+
 /**
  * Bootstrap
  * (sails.config.bootstrap)
@@ -9,18 +11,47 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(done) {
+module.exports.bootstrap = (done) => {
 
   // Don't seed fake data when running in production.
   if (process.env.NODE_ENV === 'production') {
     return done();
   }
+  new Promise( (resolve, reject) => {
 
-  Medicine.create(mockObject.medicines).exec(err => {
-    if (err) {
-      return done(err);
-    }
-    return done();
+    Order.create(mockObject.orders).exec(err => {
+      if (err) {
+        return reject(err);
+      }
+      return resolve();
+    });
+
+  }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      Provider.create(mockObject.providers).exec( err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+    new Promise( (resolve, reject) => {
+
+      DeliveryPlan.create(mockObject.deliveryPlans).exec( err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+
+    done();
+
   });
 
 };

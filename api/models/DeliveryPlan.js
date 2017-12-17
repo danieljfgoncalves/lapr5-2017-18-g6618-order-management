@@ -9,9 +9,14 @@ module.exports = {
 
   attributes: {
 
+    date: {
+      type: 'date',
+      //required: true
+    },
+
     // the generated delivery plan path (name, latitude, longitude)
     path: {
-      type: ['string', 'float', 'float']
+      type: 'string'
     },
 
     // a delivery plan has many orders

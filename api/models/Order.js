@@ -12,23 +12,20 @@ module.exports = {
     // date of order creation
     date: {
       type: 'date',
-      defaultsTo: Date.now
-    },
-
-    // requested medicine quantity
-    quantity: {
-      type: 'integer',
-      required: true
-    },
-
-    // pharmacy time restriction ex: morning, afternoon...
-    timeRestriction: {
-      type: 'string' // change to enum?
+      defaultsTo: function () {
+        return new Date();
+      }
     },
 
     // name of the requested medicine
     itemName: {
       type: 'string',
+      required: true
+    },
+
+    // requested medicine quantity
+    quantity: {
+      type: 'integer',
       required: true
     },
 
@@ -49,8 +46,13 @@ module.exports = {
     },
 
     longitude: {
-      type : 'float',
+      type: 'float',
       required: true
+    },
+
+    // pharmacy time restriction ex: morning, afternoon...
+    timeRestriction: {
+      type: 'string' // change to enum?
     },
 
     // order is in one delivery plan
