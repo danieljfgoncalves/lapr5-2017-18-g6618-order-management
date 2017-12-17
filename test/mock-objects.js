@@ -15,7 +15,7 @@ exports.providers = [
 ];
 
 exports.deliveryPlans = [
-    {path: "[{'pharmacy': 'TestPharmacy1', 'latitude':1.20, 'longitude':2.42},{'pharmacy': 'TestPharmacy2', 'latitude':1.40, 'longitude':2.62},{'pharmacy': 'TestPharmacy3', 'latitude':1.60, 'longitude':2.82}]",
-    orders: [1,2,3]}
+    {path: "[{'pharmacy': 'TestPharmacy1', 'latitude':1.20, 'longitude':2.42},{'pharmacy': 'TestPharmacy2', 'latitude':1.40, 'longitude':2.62}]",
+    orders: [1,2]}
 ];
 
