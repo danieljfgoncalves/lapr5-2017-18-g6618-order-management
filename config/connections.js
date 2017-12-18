@@ -34,7 +34,7 @@ module.exports.connections = {
 
   testDB: {
     adapter: 'sails-memory'
-  }
+  },
 
   /***************************************************************************
   *                                                                          *
@@ -44,13 +44,17 @@ module.exports.connections = {
   * Run: npm install sails-mysql@for-sails-0.12 --save                       *
   *                                                                          *
   ***************************************************************************/
-  // someMysqlServer: {
-  //   adapter: 'sails-mysql',
-  //   host: 'YOUR_MYSQL_SERVER_HOSTNAME_OR_IP_ADDRESS',
-  //   user: 'YOUR_MYSQL_USER', //optional
-  //   password: 'YOUR_MYSQL_PASSWORD', //optional
-  //   database: 'YOUR_MYSQL_DB' //optional
-  // },
+
+  sqlserver: {
+    adapter: 'sails-sqlserver',
+    user: 'buildingblocks',
+    password: '123+qwe-123+qwe',
+    host: 'lapr5-g6618-orders-management.database.windows.net', // azure database 
+    database: 'lapr5-g6618-orders-management-db',
+    options: {
+      encrypt: true   // use this for Azure databases 
+    }
+  }
 
   /***************************************************************************
   *                                                                          *
