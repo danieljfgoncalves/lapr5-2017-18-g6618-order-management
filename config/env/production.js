@@ -18,8 +18,8 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-    connection: 'sqlserver',
-    migrate: 'safe'
+    migrate: 'safe',
+    connection: 'sqlserver'
   },
 
   /***************************************************************************
@@ -32,8 +32,8 @@ module.exports = {
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
 
-  // log: {
-  //   level: "silent"
-  // }
+  log: {
+    level: "silent"
+  }
 
 };
