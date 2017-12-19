@@ -15,6 +15,16 @@ module.exports = {
       required: true
     },
 
+    latitude: {
+      type: 'float',
+      required: true
+    },
+
+    longitude: {
+      type: 'float',
+      required: true
+    },
+
     // provider has many orders
     orders: {
       collection: 'order',

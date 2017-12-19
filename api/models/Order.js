@@ -10,15 +10,25 @@ module.exports = {
   attributes: {
 
     // date of order creation
-    date: {
+    orderDate: {
       type: 'date',
       defaultsTo: function () {
         return new Date();
       }
     },
 
+    requestDate: {
+      type: 'date',
+      required: true
+    },
+
     // name of the requested medicine
     itemName: {
+      type: 'string',
+      required: true
+    },
+
+    form: {
       type: 'string',
       required: true
     },

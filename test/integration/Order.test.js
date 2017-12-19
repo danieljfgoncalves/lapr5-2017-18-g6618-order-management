@@ -22,7 +22,9 @@ describe('Order Tests', function () {
                     var result = [];
                     res.body.forEach(element => {
                         result.push({
+                            requestDate: new Date(element.requestDate).toString(),
                             itemName: element.itemName,
+                            form: element.form,
                             quantity: element.quantity,
                             pharmacy: element.pharmacy,
                             latitude: element.latitude,
@@ -42,7 +44,9 @@ describe('Order Tests', function () {
             request(sails.hooks.http.app)
                 .post('/api/orders')
                 .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
                     itemName: "Tussilene",
+                    form: "pills",
                     quantity: 10,
                     pharmacy: "TestPharmacy",
                     latitude: 1.30,

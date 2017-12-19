@@ -17,7 +17,8 @@ module.exports.models = {
   * connections (see `config/connections.js`)                                *
   *                                                                          *
   ***************************************************************************/
-  connection: 'sqlserver',
+  //connection: 'sqlserver', // azure database
+  connection: 'testDB',
 
   /***************************************************************************
   *                                                                          *

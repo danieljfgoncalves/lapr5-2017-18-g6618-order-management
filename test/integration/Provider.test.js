@@ -27,6 +27,8 @@ describe('Provider Tests', function () {
             });
             result.push({
               name: element.name,
+              latitude: element.latitude,
+              longitude: element.longitude,
               orders: orders
             });
           });
@@ -43,6 +45,8 @@ describe('Provider Tests', function () {
         .post('/api/providers')
         .send({
           name:"provider4",
+          latitude: 1.55,
+          longitude: 1.65,
           orders: []
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
