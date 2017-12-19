@@ -13,7 +13,7 @@ module.exports = {
     orderDate: {
       type: 'date',
       defaultsTo: function () {
-        return new Date();
+        return Date();
       }
     },
 
