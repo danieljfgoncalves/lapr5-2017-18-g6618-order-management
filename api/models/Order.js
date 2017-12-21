@@ -18,7 +18,7 @@ module.exports = {
     },
 
     requestDate: {
-      type: 'date',
+      type: 'datetime',
       required: true
     },
 

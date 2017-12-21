@@ -10,7 +10,7 @@ module.exports = {
   attributes: {
 
     date: {
-      type: 'date',
+      type: 'datetime',
       //required: true
     },
 
