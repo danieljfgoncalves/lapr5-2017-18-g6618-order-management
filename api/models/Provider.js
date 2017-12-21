@@ -25,6 +25,10 @@ module.exports = {
       required: true
     },
 
+    timeRestriction: {
+      type: 'string',
+    },
+
     // provider has many orders
     orders: {
       collection: 'order',

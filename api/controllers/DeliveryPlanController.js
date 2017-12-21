@@ -28,9 +28,33 @@ module.exports = {
 
             Provider.find().exec(function (err, providers) {
                 providers.forEach(function (provider) {
+                    console.log(provider.name);
                     // array of daily orders of each provider
                     var dailyOrders = []
+                    
                     // data for Travels Management request
+                    // {
+                    //     "departure": {
+                    //         "name":"Warehouse XPTO",
+                    //         "latitude":"40.1234567",
+                    //         "longitude":"30.1234567",
+                    //         "time":"160"
+                    //     }
+                    //     "pharmacies": [
+                    //         {
+                    //             "name":"PharmacyA",
+                    //             "latitude":"35.1234567",
+                    //             "longitude":"40.1234567",
+                    //             "limitTime":"860"
+                    //         },
+                    //         {
+                    //             "name":"PharmacyB",
+                    //             "latitude":"30.1234567",
+                    //             "longitude":"35.1234567",
+                    //             "limitTime":"860"
+                    //         }
+                    //     ]
+                    // }
                     var travelsData = {
                         departure: {},
                         pharmacies: []
@@ -41,35 +65,12 @@ module.exports = {
                             travelsData.departure.name = order.provider.name
                             travelsData.departure.latitude = order.provider.latitude
                             travelsData.departure.longitude = order.provider.longitude
-                            //time
+                            travelsData.departure.time = order.provider.timeRestriction
 
-                            travelsData.pharmacies.push({ "name": order.pharmacy, "latitude": order.latitude, "longitude": order.longitude, "time": order.timeRestriction })
+                            travelsData.pharmacies.push({ "name": order.pharmacy, "latitude": order.latitude, "longitude": order.longitude, "limitTime": order.timeRestriction })
                         }
                     })
                     if (dailyOrders.length > 0) {
-
-                        // {
-                        //     "departure": {
-                        //         "name":"Warehouse XPTO",
-                        //         "latitude":"40.1234567",
-                        //         "longitude":"30.1234567",
-                        //         "time":"160"
-                        //     }
-                        //     "pharmacies": [
-                        //         {
-                        //             "name":"PharmacyA",
-                        //             "latitude":"35.1234567",
-                        //             "longitude":"40.1234567",
-                        //             "limitTime":"860"
-                        //         },
-                        //         {
-                        //             "name":"PharmacyB",
-                        //             "latitude":"30.1234567",
-                        //             "longitude":"35.1234567",
-                        //             "limitTime":"860"
-                        //         }
-                        //     ]
-                        // }
 
                         // TEST
                         travels = JSON.stringify(travelsData)
@@ -87,7 +88,7 @@ module.exports = {
                         //     }
                         //     return res.send(body);
                         // })
-                        
+
                     }
                 })
                 if (err) {

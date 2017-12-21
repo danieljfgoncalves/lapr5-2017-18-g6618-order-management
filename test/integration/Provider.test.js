@@ -29,6 +29,7 @@ describe('Provider Tests', function () {
               name: element.name,
               latitude: element.latitude,
               longitude: element.longitude,
+              timeRestriction: element.timeRestriction,
               orders: orders
             });
           });
