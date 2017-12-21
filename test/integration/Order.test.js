@@ -23,6 +23,7 @@ describe('Order Tests', function () {
                     res.body.forEach(element => {
                         result.push({
                             requestDate: new Date(element.requestDate).toString(),
+                            orderDate: element.orderDate,
                             itemName: element.itemName,
                             form: element.form,
                             quantity: element.quantity,

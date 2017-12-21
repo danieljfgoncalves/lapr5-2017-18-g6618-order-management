@@ -1,3 +1,5 @@
+const request = require("request-promise");
+
 /**
  * DeliveryPlanController
  *
@@ -6,6 +8,98 @@
  */
 
 module.exports = {
-	
-};
+
+    /**
+    * GET /api/deliveryPlan/generate
+    */
+    generateDeliveryPlan: function (req, res) {
+
+        // sets yesterday's date and time at 23:50 (last delivery plan generation time)
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setHours(23, 50, 0, 0);
+
+        // sets today's date and time at 23:50 (delivery plan generation time)
+        var today = new Date();
+        today.setDate(today.getDate() + 1);
+        today.setHours(23, 50, 0, 0);
+
+        Order.find({ orderDate: { '>': yesterday, '<': today } }).populate('provider').exec(function (err, orders) {
+
+            Provider.find().exec(function (err, providers) {
+                providers.forEach(function (provider) {
+                    // array of daily orders of each provider
+                    var dailyOrders = []
+                    // data for Travels Management request
+                    var travelsData = {
+                        departure: {},
+                        pharmacies: []
+                    }
+                    orders.forEach(function (order) {
+                        if (order.provider.id == provider.id) {
+                            dailyOrders.push(order)
+                            travelsData.departure.name = order.provider.name
+                            travelsData.departure.latitude = order.provider.latitude
+                            travelsData.departure.longitude = order.provider.longitude
+                            //time
+
+                            travelsData.pharmacies.push({ "name": order.pharmacy, "latitude": order.latitude, "longitude": order.longitude, "time": order.timeRestriction })
+                        }
+                    })
+                    if (dailyOrders.length > 0) {
+
+                        // {
+                        //     "departure": {
+                        //         "name":"Warehouse XPTO",
+                        //         "latitude":"40.1234567",
+                        //         "longitude":"30.1234567",
+                        //         "time":"160"
+                        //     }
+                        //     "pharmacies": [
+                        //         {
+                        //             "name":"PharmacyA",
+                        //             "latitude":"35.1234567",
+                        //             "longitude":"40.1234567",
+                        //             "limitTime":"860"
+                        //         },
+                        //         {
+                        //             "name":"PharmacyB",
+                        //             "latitude":"30.1234567",
+                        //             "longitude":"35.1234567",
+                        //             "limitTime":"860"
+                        //         }
+                        //     ]
+                        // }
+
+                        // TEST
+                        travels = JSON.stringify(travelsData)
+                        console.log(travels)
+
+                        // var options = {
+                        //     url: 'something/calculatePlan',
+                        //     body: { body: JSON.stringify(travelsData) }
+                        // };
+
+                        // request.post(options, function (error, response, body) {
+                        //     if (error) {
+                        //         console.log(error);
+                        //         return res.send(error);
+                        //     }
+                        //     return res.send(body);
+                        // })
+                        
+                    }
+                })
+                if (err) {
+                    return res.serverError(err);
+                }
+            })
+            if (err) {
+                return res.serverError(err);
+            }
+            //return res.ok("No orders found!");
+        })
+    }
+}
+
 

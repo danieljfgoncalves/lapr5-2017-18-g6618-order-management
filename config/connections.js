@@ -45,8 +45,20 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
+  // sqlserver: {
+  //   adapter: 'sails-sqlserver',
+  //   user: 'buildingblocks',
+  //   password: '123+qwe-123+qwe',
+  //   host: 'lapr5-g6618-orders-management.database.windows.net', // azure database 
+  //   database: 'lapr5-g6618-orders-management-db',
+  //   options: {
+  //     encrypt: true   // use this for Azure databases 
+  //   }
+  // }
+
+
   sqlserver: {
-    adapter: 'sails-sqlserver',
+    adapter: 'sails-mssqlserver',
     user: 'buildingblocks',
     password: '123+qwe-123+qwe',
     host: 'lapr5-g6618-orders-management.database.windows.net', // azure database 
@@ -55,6 +67,7 @@ module.exports.connections = {
       encrypt: true   // use this for Azure databases 
     }
   }
+
 
   /***************************************************************************
   *                                                                          *

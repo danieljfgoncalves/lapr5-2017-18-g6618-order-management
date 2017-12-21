@@ -1,4 +1,5 @@
 var mockObject = require('../test/mock-objects');
+var schedule = require('node-schedule');
 
 /**
  * Bootstrap
@@ -13,11 +14,16 @@ var mockObject = require('../test/mock-objects');
 
 module.exports.bootstrap = (done) => {
 
+  // bootstrapping all the cronjobs in the crontab folder 
+  sails.config.crontab.crons().forEach(function (item) {
+    schedule.scheduleJob(item.interval, sails.config.crontab[item.method]);
+  });
+
   // Don't seed fake data when running in production.
   if (process.env.NODE_ENV === 'production') {
     return done();
   }
-  new Promise( (resolve, reject) => {
+  new Promise((resolve, reject) => {
 
     Order.create(mockObject.orders).exec(err => {
       if (err) {
@@ -27,9 +33,9 @@ module.exports.bootstrap = (done) => {
     });
 
   }).then(res => {
-    new Promise( (resolve, reject) => {
+    new Promise((resolve, reject) => {
 
-      Provider.create(mockObject.providers).exec( err => {
+      Provider.create(mockObject.providers).exec(err => {
         if (err) {
           return done(err);
         }
@@ -38,9 +44,9 @@ module.exports.bootstrap = (done) => {
 
     });
   }).then(res => {
-    new Promise( (resolve, reject) => {
+    new Promise((resolve, reject) => {
 
-      DeliveryPlan.create(mockObject.deliveryPlans).exec( err => {
+      DeliveryPlan.create(mockObject.deliveryPlans).exec(err => {
         if (err) {
           return done(err);
         }
