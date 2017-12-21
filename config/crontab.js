@@ -6,7 +6,7 @@ module.exports.crontab = {
      
     * schedule setting in crontab, i.e. 
      
-    * minute hour day month day-of-week year 
+    * second minute hour day month day-of-week year 
      
     * so in the example below it will run every minute 
      
@@ -16,8 +16,7 @@ module.exports.crontab = {
     crons: function () {
         var jsonArray = [];
         //jsonArray.push({interval:'1 * * * * * ',method:'mytest'}); 
-        //jsonArray.push({interval:'*/1 * * * * * ',method:'anothertest'}); 
-        jsonArray.push({ interval: '50 23 * * * *', method: 'generateDeliveryPlan' });
+        jsonArray.push({ interval: '50 23 * * *', method: 'generateDeliveryPlan' });
 
         return jsonArray;
 
@@ -30,14 +29,7 @@ module.exports.crontab = {
     // } 
 
     generateDeliveryPlan: function () {
-        require('../api/controllers/deliveryPlanController.js').generateDeliveryPlan();
+        require('../api/controllers/DeliveryPlanController.js').generateDeliveryPlan();
     }
-
-    /* 
-    anothertest:function(){ 
-    require('../crontab/anothertest.js').run(); 
-    } 
-    */
-
 
 }; 

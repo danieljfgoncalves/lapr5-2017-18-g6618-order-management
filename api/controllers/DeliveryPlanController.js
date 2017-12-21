@@ -9,9 +9,6 @@ const request = require("request-promise");
 
 module.exports = {
 
-    /**
-    * GET /api/deliveryPlan/generate
-    */
     generateDeliveryPlan: function (req, res) {
 
         // sets yesterday's date and time at 23:50 (last delivery plan generation time)
@@ -31,7 +28,7 @@ module.exports = {
                     console.log(provider.name);
                     // array of daily orders of each provider
                     var dailyOrders = []
-                    
+
                     // data for Travels Management request
                     // {
                     //     "departure": {
@@ -78,7 +75,8 @@ module.exports = {
 
                         // var options = {
                         //     url: 'something/calculatePlan',
-                        //     body: { body: JSON.stringify(travelsData) }
+                        //     body: { body: JSON.stringify(travelsData) },
+                        //     callbackUrl: 'http://lapr5-orders-management.azurewebsites.net/api/deliveryPlan'
                         // };
 
                         // request.post(options, function (error, response, body) {
@@ -101,6 +99,7 @@ module.exports = {
             //return res.ok("No orders found!");
         })
     }
+
 }
 
 
