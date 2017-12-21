@@ -11,7 +11,7 @@ module.exports = {
 
     // date of order creation
     orderDate: {
-      type: 'date',
+      type: 'datetime',
       defaultsTo: function () {
         return new Date();
       }
