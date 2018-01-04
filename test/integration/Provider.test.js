@@ -45,17 +45,17 @@ describe('Provider Tests', function () {
       request(sails.hooks.http.app)
         .post('/api/providers')
         .send({
-          name:"provider4",
+          name: "provider4",
           latitude: 1.55,
           longitude: 1.65,
           orders: []
         })
         .expect('Content-Type', 'application/json; charset=utf-8')
         .expect(201)
-        .end( (err, res) => {
+        .end((err, res) => {
           if (err) {
             throw err;
-          }          
+          }
           assert.equal(res.body.name, "provider4");
           done();
         })

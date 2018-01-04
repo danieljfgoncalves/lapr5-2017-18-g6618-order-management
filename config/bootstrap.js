@@ -46,6 +46,28 @@ module.exports.bootstrap = (done) => {
   }).then(res => {
     new Promise((resolve, reject) => {
 
+      Waypoint.create(mockObject.waypoints).exec(err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+    new Promise((resolve, reject) => {
+
+      Pharmacy.create(mockObject.pharmacies).exec(err => {
+        if (err) {
+          return done(err);
+        }
+        resolve();
+      });
+
+    });
+  }).then(res => {
+    new Promise((resolve, reject) => {
+
       DeliveryPlan.create(mockObject.deliveryPlans).exec(err => {
         if (err) {
           return done(err);

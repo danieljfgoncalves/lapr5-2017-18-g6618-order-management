@@ -11,18 +11,21 @@ module.exports = {
 
     date: {
       type: 'datetime',
-      //required: true
+      defaultsTo: function () {
+        return new Date();
+      }
     },
 
-    // the generated delivery plan path (name, latitude, longitude)
-    path: {
-      type: 'string'
+    VisitedPharmacies: {
+      collection: 'pharmacy',
     },
 
-    // a delivery plan has many orders
-    orders: {
-      collection: 'order',
-      via: 'deliveryPlan'
+    OrderedWaypoints: {
+      collection: 'waypoint',
+    },
+
+    NonVisitedPharmacies: {
+      collection: 'pharmacy'
     }
 
   }

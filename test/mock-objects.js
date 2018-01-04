@@ -14,8 +14,19 @@ exports.providers = [
     {name: "provider3", latitude: 1.60, longitude: 1.80, timeRestriction: "180", orders: []}
 ];
 
+exports.waypoints = [
+    {latitude: 1.20000, longitude: 1.30000},
+    {latitude: 1.55000, longitude: 1.66000},
+    {latitude: 40.55000, longitude: -8.66000},
+];
+
+exports.pharmacies = [
+    {name: "PharmacyA", waypoint: 1},
+    {name: "PharmacyB", waypoint: 2},
+    {name: "PharmacyC", waypoint: 3},
+];
+
 exports.deliveryPlans = [
-    {path: "[{'pharmacy': 'TestPharmacy1', 'latitude':1.20, 'longitude':2.42},{'pharmacy': 'TestPharmacy2', 'latitude':1.40, 'longitude':2.62}]",
-    orders: [1,2]}
+    {VisitedPharmacies: [1,2], OrderedWaypoints: [1,2], NonVisitedPharmacies: [3]}
 ];
 

@@ -53,12 +53,14 @@ module.exports = {
                     //     ]
                     // }
                     var travelsData = {
+                        url,
                         departure: {},
                         pharmacies: []
                     }
                     orders.forEach(function (order) {
                         if (order.provider.id == provider.id) {
                             dailyOrders.push(order)
+                            travelsData.url = 'http://lapr5-orders-management.azurewebsites.net/api/deliveryPlan'
                             travelsData.departure.name = order.provider.name
                             travelsData.departure.latitude = order.provider.latitude
                             travelsData.departure.longitude = order.provider.longitude
@@ -73,19 +75,18 @@ module.exports = {
                         travels = JSON.stringify(travelsData)
                         console.log(travels)
 
-                        // var options = {
-                        //     url: 'something/calculatePlan',
-                        //     body: { body: JSON.stringify(travelsData) },
-                        //     callbackUrl: 'http://lapr5-orders-management.azurewebsites.net/api/deliveryPlan'
-                        // };
+                        var options = {
+                            url: 'http://ec2-54-213-7-246.us-west-2.compute.amazonaws.com:3000/calculatePlan',
+                            body: { body: JSON.stringify(travelsData) },
+                        };
 
-                        // request.post(options, function (error, response, body) {
-                        //     if (error) {
-                        //         console.log(error);
-                        //         return res.send(error);
-                        //     }
-                        //     return res.send(body);
-                        // })
+                        request.post(options, function (error, response, body) {
+                            if (error) {
+                                console.log(error);
+                                return res.send(error);
+                            }
+                            return res.send(body);
+                        })
 
                     }
                 })

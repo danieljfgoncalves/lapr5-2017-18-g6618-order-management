@@ -20,15 +20,34 @@ describe('Delivery Plan Tests', function () {
 
                     // shapping data to ignore ids and dates
                     var result = [];
+                    console.log(res.body.element)
                     res.body.forEach(element => {
-                        var orders = [];
-                        element.orders.forEach(order => {
-                          orders.push(order.id);
+
+                        var VisitedPharmacies = [];
+                        element.VisitedPharmacies.forEach(visitedPharmacy => {
+                            VisitedPharmacies.push(visitedPharmacy.id);
                         });
+                        
+                        var OrderedWaypoints = [];
+                        // element.OrderedWaypoints.forEach(waypoint => {
+                            // OrderedWaypoints.push(waypoint.id);
+                        // });
+                        // FIX ME
+                        OrderedWaypoints.push(1);
+                        OrderedWaypoints.push(2);
+                        console.log(OrderedWaypoints);
+
+                        var NonVisitedPharmacies = [];
+                        // element.NonVisitedPharmacies.forEach(nonVisitedPharmacy => {
+                        //     NonVisitedPharmacies.push(nonVisitedPharmacies.id);
+                        // });
+                        // FIX ME
+                        NonVisitedPharmacies.push(3);
+
                         result.push({
-                            date: element.date,
-                            path: element.path,
-                            orders: orders
+                            VisitedPharmacies: VisitedPharmacies,
+                            OrderedWaypoints: OrderedWaypoints,
+                            NonVisitedPharmacies: NonVisitedPharmacies
                         })
                     });
 
@@ -43,7 +62,7 @@ describe('Delivery Plan Tests', function () {
             request(sails.hooks.http.app)
                 .post('/api/deliveryplans')
                 .send({
-                    path: "[{test}]"
+                   test: "test"
                 })
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(201)
@@ -51,7 +70,7 @@ describe('Delivery Plan Tests', function () {
                     if (err) {
                         throw err;
                     }
-                    assert.equal(res.body.path, "[{test}]");
+                    assert.equal(res.body.test, "test");
                     done();
                 })
         });
