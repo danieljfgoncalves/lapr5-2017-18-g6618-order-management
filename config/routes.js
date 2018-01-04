@@ -47,6 +47,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   'POST /api/orders/new': { controller: 'order', action: 'createNewOrder' },
-  'GET /api/deliveryPlan/generate': { controller: 'deliveryPlan', action: 'generateDeliveryPlan' }
+  'GET /api/deliveryPlan/generate': { controller: 'deliveryPlan', action: 'generateDeliveryPlan' },
+  'GET /api/status': { controller: 'status', action: 'getStatus' }
 
 };
