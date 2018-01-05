@@ -16,8 +16,23 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.policies.html
  */
 
+var requireRoles = require('../api/policies/requireRoles');
 
 module.exports.policies = {
+
+  '*': [ 'handleToken', requireRoles(['admin', 'supplier']) ],
+
+  OrderController: {
+    createNewOrder: true
+  },
+
+  DeliveryPlanController: {
+    generateDeliveryPlan: true
+  },
+
+  StatusController: {
+    getStatus: true
+  }
 
   /***************************************************************************
   *                                                                          *

@@ -20,6 +20,10 @@ module.exports = {
     models: {
       migrate: 'drop',
       connection: "testDB"
+    },
+
+    policies: {
+      '*': true
     }
   
   };
