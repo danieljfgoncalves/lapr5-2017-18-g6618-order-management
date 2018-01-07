@@ -29,6 +29,7 @@
     "sails": "~0.12.14",
     "sails-disk": "~0.10.9",
     "sails-memory": "^0.10.7",
+    "sails-mongo": "^0.12.2",
     "sails-mssqlserver": "^0.14.3",
     "sails-sqlserver": "^0.10.8",
     "supertest": "^3.0.0"

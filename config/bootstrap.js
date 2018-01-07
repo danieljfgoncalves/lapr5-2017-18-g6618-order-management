@@ -23,6 +23,7 @@ module.exports.bootstrap = (done) => {
   if (process.env.NODE_ENV === 'production') {
     return done();
   }
+  
   new Promise((resolve, reject) => {
 
     Order.create(mockObject.orders).exec(err => {

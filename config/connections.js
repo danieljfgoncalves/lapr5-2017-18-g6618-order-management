@@ -66,8 +66,16 @@ module.exports.connections = {
     options: {
       encrypt: true   // use this for Azure databases 
     }
-  }
+  },
 
+  mongodb: {
+    adapter: 'sails-mongo',
+    host: 'ds247027.mlab.com',
+    port: 47027,
+    user: 'admin',
+    password: '123+qwe-123+qwe',
+    database: 'lapr5-6618-orders-management'
+  }
 
   /***************************************************************************
   *                                                                          *

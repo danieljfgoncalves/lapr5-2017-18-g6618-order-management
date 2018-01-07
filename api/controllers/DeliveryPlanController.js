@@ -53,7 +53,7 @@ module.exports = {
                     //     ]
                     // }
                     var travelsData = {
-                        url,
+                        url:url,
                         departure: {},
                         pharmacies: []
                     }
