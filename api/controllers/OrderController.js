@@ -35,7 +35,7 @@ module.exports = {
                 if (err) {
                     return res.badRequest(err);
                 }
-                return res.ok("Order successfully created!");
+                return res.status(201).send("Order successfully created!");
 
             })
         })
