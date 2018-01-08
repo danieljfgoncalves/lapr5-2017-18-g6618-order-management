@@ -35,7 +35,7 @@ module.exports = {
                 if (err) {
                     return res.badRequest(err);
                 }
-                return res.status(201).send("Order successfully created!");
+                return res.status(201).json({ message: 'Order successfully created!'})
 
             })
         })
