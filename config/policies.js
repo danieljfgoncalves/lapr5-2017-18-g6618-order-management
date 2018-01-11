@@ -17,10 +17,11 @@
  */
 
 var requireRoles = require('../api/policies/requireRoles');
+var logs = require('./http');
 
 module.exports.policies = {
 
-  '*': [ 'handleToken', requireRoles(['admin', 'supplier']) ],
+  '*': [ logs.http.customMiddleware, 'handleToken', requireRoles(['admin', 'supplier']) ],
 
   OrderController: {
     createNewOrder: true
