@@ -3,27 +3,25 @@
  */
 
 exports.orders = [
-    {requestDate: "2017-12-21T16:58:50.000Z", orderDate: "2017-12-21T16:58:56.000Z", itemName: "Ben-u-ron", form: "pills", quantity: 10, pharmacy: "TestPharmacy", latitude: 1.20, longitude: 2.42, timeRestriction: "morning", },
-    {requestDate: "2017-12-20T23:52:50.000Z", orderDate: "2017-12-20T23:52:56.000Z", itemName: "Aspirin", form: "pills", quantity: 20, pharmacy: "TestPharmacy", latitude: 1.40, longitude: 1.42, timeRestriction: "afternoon", },
-    {requestDate: "2017-12-21T16:58:50.000Z", orderDate: "2017-12-21T16:58:56.000Z", itemName: "Paracetamol Generis", form: "pills", quantity: 10, pharmacy: "TestPharmacy", latitude: 1.80, longitude: 2.60, timeRestriction: "morning"},
+    {requestDate: "2017-12-21T16:58:50.000Z", orderDate: "2018-01-11T16:58:56.000Z", itemName: "Ben-u-ron", form: "pills", quantity: 10, pharmacy: "pharmacy_good_health", latitude: 41.1461277, longitude: -8.5857730, timeRestriction: "0", },
+    {requestDate: "2017-12-20T23:52:50.000Z", orderDate: "2018-01-11T16:52:56.000Z", itemName: "Aspirin", form: "pills", quantity: 20, pharmacy: "pharmacy_fresh_medicine", latitude: 41.1976618, longitude: -8.5560299, timeRestriction: "860", },
+    {requestDate: "2017-12-21T16:58:50.000Z", orderDate: "2018-01-11T20:58:56.000Z", itemName: "Paracetamol Generis", form: "pills", quantity: 10, pharmacy: "pharmacy_green_rock", latitude: 41.1487987, longitude: -8.6121351, timeRestriction: "0"},
 ];
 
 exports.providers = [
-    {name: "provider1", latitude: 1.20, longitude: 1.30, timeRestriction: "160", orders: [1]},
-    {name: "provider2", latitude: 1.40, longitude: 1.50, timeRestriction: "170", orders: [2,3]},
-    {name: "provider3", latitude: 1.60, longitude: 1.80, timeRestriction: "180", orders: []}
+    {name: "mean_warehouse", latitude: 41.1742319, longitude: -8.6224058, timeRestriction: "160", orders: [1,2,3]},
 ];
 
 exports.waypoints = [
-    {latitude: 1.20000, longitude: 1.30000},
-    {latitude: 1.55000, longitude: 1.66000},
-    {latitude: 40.55000, longitude: -8.66000},
+    {latitude: 41.1461277, longitude: -8.5857730},
+    {latitude: 41.1976618, longitude: -8.5560299},
+    {latitude: 41.1487987, longitude: -8.6121351},
 ];
 
 exports.pharmacies = [
-    {name: "PharmacyA", waypoint: 1},
-    {name: "PharmacyB", waypoint: 2},
-    {name: "PharmacyC", waypoint: 3},
+    {name: "pharmacy_good_health", waypoint: 1},
+    {name: "pharmacy_fresh_medicine", waypoint: 2},
+    {name: "pharmacy_green_rock", waypoint: 3},
 ];
 
 exports.deliveryPlans = [
