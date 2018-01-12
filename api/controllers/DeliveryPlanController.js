@@ -12,8 +12,25 @@ const _ = require('underscore');
 
 module.exports = {
 
+    /**
+     * GET /api/DeliveryPlans/detailed
+     */
     detailedDeliveryPlan: (req, res) => {
-        
+        DeliveryPlan.find()
+        .populate('VisitedPharmacies')
+        .populate('NonVisitedPharmacies')
+        .exec((err1, plans) => {
+            if (err1) {
+                return res.status(400).send(err1);
+            }
+            if (plans.error) {
+                return res.status(400).send(plans.error);
+            }
+
+            DeliveryPlanService.mapPlans(plans).then(plansDTO => {
+                return res.send(plansDTO);
+            })
+        });
     },
 
     /**
