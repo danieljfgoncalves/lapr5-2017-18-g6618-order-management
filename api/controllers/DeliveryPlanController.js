@@ -16,7 +16,15 @@ module.exports = {
      * GET /api/DeliveryPlans/detailed
      */
     detailedDeliveryPlan: (req, res) => {
-        DeliveryPlan.find()
+
+        var yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        yesterday.setHours(23, 50, 0, 0);
+
+        var today = new Date();
+        today.setHours(23, 50, 0, 0);
+
+        DeliveryPlan.find({ date: { '>': yesterday, '<': today } })
         .populate('VisitedPharmacies')
         .populate('NonVisitedPharmacies')
         .exec((err1, plans) => {
