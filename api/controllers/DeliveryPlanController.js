@@ -25,15 +25,15 @@ module.exports = {
 
         // sets today's date and time at 23:50 (delivery plan generation time)
         var today = new Date();
-        today.setDate(today.getDate() + 1);
+        today.setDate(today.getDate());
         today.setHours(23, 50, 0, 0);
 
         Order.find({ orderDate: { '>': yesterday, '<': today } }).exec(function (err, orders) {
             if (err) {
                 return res.serverError(err);
             }
-            orders.forEach(function (order) {
-                req.body.NonVisitedPharmacies.forEach(function (nonVisitedPharmacy) {
+            async.each(orders, function (order, callback) {
+                async.each(req.body.NonVisitedPharmacies, function(nonVisitedPharmacy, callbackReq) {
                     if (order.pharmacy == nonVisitedPharmacy.name) {
                         var date = new Date();
                         date.setTime(order.orderDate.getTime())
@@ -41,8 +41,10 @@ module.exports = {
                         order.orderDate = date;
                         order.save(function (err) {
                             if (err) {
-                                return res.send("Couldn't save order!");
+                                res.send("Couldn't save order!");
                             }
+                            callback();
+                            callbackReq();
                         });
                     }
                 })
