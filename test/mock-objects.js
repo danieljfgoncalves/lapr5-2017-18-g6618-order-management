@@ -43,19 +43,19 @@ exports.providers = [
         orders: [1,2,3]},
 ];
 
-exports.waypoints = [
-    {latitude: 41.1461277, longitude: -8.5857730},
-    {latitude: 41.1976618, longitude: -8.5560299},
-    {latitude: 41.1487987, longitude: -8.6121351},
-];
+// exports.waypoints = [
+//     {latitude: 41.1461277, longitude: -8.5857730},
+//     {latitude: 41.1976618, longitude: -8.5560299},
+//     {latitude: 41.1487987, longitude: -8.6121351},
+// ];
 
-exports.pharmacies = [
-    {name: "pharmacy_good_health", waypoint: 1},
-    {name: "pharmacy_fresh_medicine", waypoint: 2},
-    {name: "pharmacy_green_rock", waypoint: 3},
-];
+// exports.pharmacies = [
+//     {name: "pharmacy_good_health", waypoint: 1},
+//     {name: "pharmacy_fresh_medicine", waypoint: 2},
+//     {name: "pharmacy_green_rock", waypoint: 3},
+// ];
 
-exports.deliveryPlans = [
-    {VisitedPharmacies: [1,2], OrderedWaypoints: [1,2], NonVisitedPharmacies: [3]}
-];
+// exports.deliveryPlans = [
+//     {TotalDistance:1000000, VisitedPharmacies: [1,2], NonVisitedPharmacies: [3]}
+// ];
 

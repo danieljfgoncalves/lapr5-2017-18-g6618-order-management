@@ -17,6 +17,14 @@ module.exports = {
     waypoint: {
       model: 'waypoint'
     },
+
+    time: {
+      type: 'string'
+    },
+
+    orderedWaypoints: {
+      collection: 'waypoint',
+    },
   }
   
 };

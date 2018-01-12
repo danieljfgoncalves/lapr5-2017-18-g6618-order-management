@@ -27,7 +27,8 @@ module.exports.policies = {
   },
 
   DeliveryPlanController: {
-    generateDeliveryPlan: true
+    generateDeliveryPlan: true,
+    createNewDeliveryPlan:true
   },
 
   StatusController: {

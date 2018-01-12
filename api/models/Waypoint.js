@@ -10,12 +10,12 @@ module.exports = {
   attributes: {
 
     latitude: {
-      type: 'float',
+      type: 'string',
       required: true
     },
 
     longitude: {
-      type: 'float',
+      type: 'string',
       required: true
     },
 

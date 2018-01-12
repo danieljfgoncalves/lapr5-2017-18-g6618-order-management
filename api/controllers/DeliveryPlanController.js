@@ -1,6 +1,7 @@
 const request = require("request");
 const Promise = require("bluebird");
 const join = Promise.join;
+const _ = require('underscore');
 
 /**
  * DeliveryPlanController
@@ -10,6 +11,10 @@ const join = Promise.join;
  */
 
 module.exports = {
+
+    detailedDeliveryPlan: (req, res) => {
+        
+    },
 
     /**
      * POST /api/deliveryPlans/new
@@ -36,8 +41,8 @@ module.exports = {
                 async.each(req.body.NonVisitedPharmacies, function(nonVisitedPharmacy, callbackReq) {
                     if (order.pharmacy == nonVisitedPharmacy.name) {
                         var date = new Date();
-                        date.setTime(order.orderDate.getTime())
-                        date.setDate(order.orderDate.getDate() + 1)
+                        date.setTime(order.orderDate.getTime());
+                        date.setDate(order.orderDate.getDate() + 1);
                         order.orderDate = date;
                         order.save(function (err) {
                             if (err) {
@@ -46,13 +51,70 @@ module.exports = {
                             callback();
                             callbackReq();
                         });
+                    } else {
+                        callback();
+                        callbackReq();
                     }
-                })
-            })
+                });
+            });
+
+            // req.body.OrderedWaypoints
+
+
+            var pharms = [];
+            for(var i = 0 ; i < req.body.VisitedPharmacies.length - 1; i++){
+            
+                var pharm = req.body.VisitedPharmacies[i];
+                var next = req.body.VisitedPharmacies[i+1];
+
+                var index1 = 1 + _.findIndex(req.body.OrderedWaypoints, (waypoint)=>{
+
+                    return ((waypoint.latitude == pharm.latitude) || (waypoint.latitude == pharm.longitude));
+                });
+                var index2 =_.findIndex(req.body.OrderedWaypoints, (waypoint) => {
+
+                    return ((waypoint.latitude == next.latitude) || (waypoint.longitude == next.longitude));
+                }); 
+
+                if(index1 > index2) {
+                    var aux = index1;
+                    index1 = index2;
+                    index2 = aux;
+                }
+
+                var waypoints = [];
+                for (var j = index1; j < index2; j++) {
+                    waypoints.push(req.body.OrderedWaypoints[j]);
+                }
+                var waypoint = {
+                    latitude: pharm.latitude,
+                    longitude: pharm.longitude,
+                };
+                var pharmacy = {
+                    name: pharm.name,
+                    waypoint: waypoint,
+                    time: pharm.time,
+                    orderedWaypoints: waypoints
+                };
+                pharms.push(pharmacy);
+            }
+
+            var lastAux = _.last(req.body.VisitedPharmacies);
+            var lastWaypoint = {
+                latitude: lastAux.latitude,
+                longitude: lastAux.longitude,
+            };
+            var last = {
+                name: lastAux.name,
+                waypoint:lastWaypoint,
+                time: lastAux.time
+            };
+            pharms.push(last);
+
 
             DeliveryPlan.create({
-                VisitedPharmacies: req.body.VisitedPharmacies,
-                OrderedWaypoints: req.body.OrderedWaypoints,
+                TotalDistance: req.body.Distance,
+                VisitedPharmacies: pharms,
                 NonVisitedPharmacies: req.body.NonVisitedPharmacies
             }).exec(function (err) {
                 if (err) {

@@ -16,12 +16,12 @@ module.exports = {
       }
     },
 
-    VisitedPharmacies: {
-      collection: 'pharmacy',
+    TotalDistance: {
+      type: 'string'
     },
 
-    OrderedWaypoints: {
-      collection: 'waypoint',
+    VisitedPharmacies: {
+      collection: 'pharmacy',
     },
 
     NonVisitedPharmacies: {
