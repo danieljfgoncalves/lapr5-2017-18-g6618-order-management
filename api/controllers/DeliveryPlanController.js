@@ -75,8 +75,8 @@ module.exports = {
                     return res.badRequest(err);
                 }
                 return res.status(201).json({ message: 'Delivery plan successfully created!' })
-            })
-        })
+            });
+        });
     },
 
     generateDeliveryPlan: (req, res) => {
@@ -108,7 +108,42 @@ module.exports = {
                     if (error) {
                         return res.status(500).json(error);
                     }
-                    return res.status(200).json(reqBody);
+                    if (req.query.recalculate == 'true') {
+
+                        // sets yesterday's date and time at 23:50 (last delivery plan generation time)
+                        var yesterday = new Date();
+                        yesterday.setDate(yesterday.getDate() - 1);
+                        yesterday.setHours(23, 50, 0, 0);
+                        // sets today's date and time at 23:50 (delivery plan generation time)
+                        var today = new Date();
+                        today.setDate(today.getDate());
+                        today.setHours(23, 50, 0, 0);
+
+                        Order.find({ orderDate: { '>': yesterday, '<': today } }).exec(function (err, orders) {
+                            if (err) {
+                                return res.serverError(err);
+                            }
+
+                            // Reorder non delivered orders
+                            DeliveryPlanService.reorderNonDelivered(orders, reqBody.NonVisitedPharmacies);
+                            // Create tommorows delivery plan
+                            DeliveryPlan.create({
+                                TotalDistance: reqBody.Distance,
+                                VisitedPharmacies: DeliveryPlanService.appendWaypoints(reqBody.VisitedPharmacies, reqBody.OrderedWaypoints),
+                                NonVisitedPharmacies: reqBody.NonVisitedPharmacies
+                            }).exec(function (err) {
+                                if (err) {
+                                    return res.badRequest(err);
+                                }
+                                return res.status(200).json({
+                                    message: "Delivery plan recalculated.",
+                                    plan: reqBody
+                                });
+                            });
+                        });
+                    } else {
+                        return res.status(200).json(reqBody);
+                    }
                 }); 
         }).catch(function(err) {
             res.status(500).json(err);
