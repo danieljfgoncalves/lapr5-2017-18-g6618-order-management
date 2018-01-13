@@ -20,33 +20,22 @@ describe('Delivery Plan Tests', function () {
 
                     // shapping data to ignore ids and dates
                     var result = [];
-                    console.log(res.body.element)
+                    var VisitedPharmacies = [];
+                    var NonVisitedPharmacies = [];
                     res.body.forEach(element => {
+                        var TotalDistance = element.TotalDistance;
 
-                        var VisitedPharmacies = [];
-                        element.VisitedPharmacies.forEach(visitedPharmacy => {
-                            VisitedPharmacies.push(visitedPharmacy.id);
-                        });
-                        
-                        var OrderedWaypoints = [];
-                        // element.OrderedWaypoints.forEach(waypoint => {
-                            // OrderedWaypoints.push(waypoint.id);
-                        // });
-                        // FIX ME
-                        OrderedWaypoints.push(1);
-                        OrderedWaypoints.push(2);
-                        console.log(OrderedWaypoints);
+                        element.VisitedPharmacies.forEach(pharmacy => {
+                            VisitedPharmacies.push(pharmacy.id);
+                        })
 
-                        var NonVisitedPharmacies = [];
-                        // element.NonVisitedPharmacies.forEach(nonVisitedPharmacy => {
-                        //     NonVisitedPharmacies.push(nonVisitedPharmacies.id);
-                        // });
-                        // FIX ME
-                        NonVisitedPharmacies.push(3);
+                        element.NonVisitedPharmacies.forEach(pharmacy => {
+                            NonVisitedPharmacies.push(pharmacy.id);
+                        })
 
                         result.push({
+                            TotalDistance: TotalDistance,
                             VisitedPharmacies: VisitedPharmacies,
-                            OrderedWaypoints: OrderedWaypoints,
                             NonVisitedPharmacies: NonVisitedPharmacies
                         })
                     });
@@ -62,7 +51,7 @@ describe('Delivery Plan Tests', function () {
             request(sails.hooks.http.app)
                 .post('/api/deliveryplans')
                 .send({
-                   test: "test"
+                    test: "test"
                 })
                 .expect('Content-Type', 'application/json; charset=utf-8')
                 .expect(201)

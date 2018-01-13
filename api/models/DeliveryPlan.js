@@ -25,7 +25,7 @@ module.exports = {
     },
 
     NonVisitedPharmacies: {
-      collection: 'pharmacy'
+      collection: 'pharmacy',
     }
 
   }
