@@ -24,9 +24,6 @@ module.exports.bootstrap = (done) => {
   if (process.env.NODE_ENV === 'production') {
     return done();
   }
-  if (process.env.NODE_ENV === 'development') {
-    return done();
-  }
 
   new Promise((resolve, reject) => {
 
