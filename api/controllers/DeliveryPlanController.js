@@ -17,14 +17,13 @@ module.exports = {
      */
     detailedDeliveryPlan: (req, res) => {
 
-        var yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        yesterday.setHours(23, 50, 0, 0);
-
         var today = new Date();
-        today.setHours(23, 50, 0, 0);
+        today.setHours(0, 0, 0, 0);
 
-        DeliveryPlan.find({ date: { '>': yesterday, '<': today } })
+        var tommorow = new Date();
+        tommorow.setHours(23, 59, 0, 0);
+
+        DeliveryPlan.find({ date: { '>': today, '<': tommorow } })
         .populate('VisitedPharmacies')
         .populate('NonVisitedPharmacies')
         .exec((err1, plans) => {
@@ -49,16 +48,16 @@ module.exports = {
         // updates date of non delivered orders to be compiled in the next day
 
         // sets yesterday's date and time at 23:50 (last delivery plan generation time)
-        var yesterday = new Date();
-        yesterday.setDate(yesterday.getDate() - 1);
-        yesterday.setHours(23, 50, 0, 0);
+        var yesterday1 = new Date();
+        yesterday1.setDate(yesterday1.getDate() - 1);
+        yesterday1.setHours(0, 0, 0, 0);
 
         // sets today's date and time at 23:50 (delivery plan generation time)
-        var today = new Date();
-        today.setDate(today.getDate());
-        today.setHours(23, 50, 0, 0);
+        var yesterday2 = new Date();
+        yesterday2.setDate(yesterday2.getDate() - 1);
+        yesterday2.setHours(23, 59, 0, 0);
 
-        Order.find({ orderDate: { '>': yesterday, '<': today } }).exec(function (err, orders) {
+        Order.find({ orderDate: { '>': yesterday1, '<': yesterday2 } }).exec(function (err, orders) {
             if (err) {
                 return res.serverError(err);
             }
@@ -96,7 +95,17 @@ module.exports = {
                     longitude: provider[0].longitude,
                     time: provider[0].timeRestriction
                 };
-                body.pharmacies = orders; 
+
+                var pharmNames = _.pluck(orders, 'name');
+                var uniqPharms = _.uniq(pharmNames);
+
+                var pharms = _.map(uniqPharms, (pharm) =>{
+
+                   return _.find(orders, (order)=> {
+                       return order.name == pharm;
+                   });
+                });
+                body.pharmacies = pharms; 
 
                 var options = {
                     url: 'http://ec2-54-213-7-246.us-west-2.compute.amazonaws.com:3000/calculatePlan',
@@ -111,15 +120,16 @@ module.exports = {
                     if (req.query.recalculate == 'true') {
 
                         // sets yesterday's date and time at 23:50 (last delivery plan generation time)
-                        var yesterday = new Date();
-                        yesterday.setDate(yesterday.getDate() - 1);
-                        yesterday.setHours(23, 50, 0, 0);
-                        // sets today's date and time at 23:50 (delivery plan generation time)
-                        var today = new Date();
-                        today.setDate(today.getDate());
-                        today.setHours(23, 50, 0, 0);
+                        var yesterday1 = new Date();
+                        yesterday1.setDate(yesterday1.getDate() - 1);
+                        yesterday1.setHours(0, 0, 0, 0);
 
-                        Order.find({ orderDate: { '>': yesterday, '<': today } }).exec(function (err, orders) {
+                        // sets today's date and time at 23:50 (delivery plan generation time)
+                        var yesterday2 = new Date();
+                        yesterday2.setDate(yesterday2.getDate() - 1);
+                        yesterday2.setHours(23, 59, 0, 0);
+
+                        Order.find({ orderDate: { '>': yesterday1, '<': yesterday2 } }).exec(function (err, orders) {
                             if (err) {
                                 return res.serverError(err);
                             }

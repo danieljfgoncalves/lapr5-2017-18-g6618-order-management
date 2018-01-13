@@ -157,16 +157,18 @@ var DeliveryPlanService = {
 
             var date = new Date();
             date.setTime(reorder.orderDate.getTime());
-            date.setDate(reorder.orderDate.getDate() + 1);
+            date.setDate(reorder.orderDate.getDate());
             reorder.orderDate = date;
             reorder.save(function (err) {
                 if (err) {
-                    res.send("Couldn't save order!");
+                    return err;
                 }
                 callback();
             });
         });
-    }
+    },
+
+
 };
 
 module.exports = DeliveryPlanService;

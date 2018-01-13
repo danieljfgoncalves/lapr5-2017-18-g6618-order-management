@@ -5,15 +5,16 @@ var OrdersService = {
     
         return new Promise(function(resolve, reject) {
 
-            // sets yesterday's date and time at 23:50 (last delivery plan generation time)
+            // sets yesterday date and time at 00:00 (last delivery plan generation time)
+            var twoDaysAgo = new Date();
+            twoDaysAgo.setDate(twoDaysAgo.getDate() - 1);
+            twoDaysAgo.setHours(0, 0, 0, 0);
+            // sets today's date and time at 23:50 (delivery plan generation time)
             var yesterday = new Date();
             yesterday.setDate(yesterday.getDate() - 1);
-            yesterday.setHours(23, 50, 0, 0);
-            // sets today's date and time at 23:50 (delivery plan generation time)
-            var today = new Date();
-            today.setHours(23, 50, 0, 0);
+            yesterday.setHours(23, 59, 0, 0);
 
-            Order.find({ orderDate: { '>': yesterday, '<': today } }).exec(function(err, orders) {
+            Order.find({ orderDate: { '>': twoDaysAgo, '<': yesterday } }).exec(function(err, orders) {
                 if (err) {
                     reject(err);
                 }
