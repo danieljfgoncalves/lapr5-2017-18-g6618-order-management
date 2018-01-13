@@ -66,4 +66,179 @@ describe('Order Tests', function () {
         });
     });
 
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a requestDate", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    //requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    form: "pills",
+                    quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a itemName", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    //itemName: "Tussilene",
+                    form: "pills",
+                    quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a form", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    //form: "pills",
+                    quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a quantity", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    form: "pills",
+                    //quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a pharmacy name", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    form: "pills",
+                    quantity: 10,
+                    //pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a latitude", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    form: "pills",
+                    quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    //latitude: 1.30,
+                    longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
+    describe("[POST] /api/orders/new", () => {
+        it("should\'t create a new order without a longitude", done => {
+            request(sails.hooks.http.app)
+                .post('/api/orders/new')
+                .send({
+                    requestDate: "Tue Dec 19 2017 11:39:47 GMT+0000",
+                    itemName: "Tussilene",
+                    form: "pills",
+                    quantity: 10,
+                    pharmacy: "TestPharmacy",
+                    latitude: 1.30,
+                    //longitude: 1.35,
+                    timeRestriction: "morning"
+                })
+                .expect('Content-Type', 'application/json; charset=utf-8')
+                .expect(400)
+                .end((err, res) => {
+                    if (err) {
+                        throw err;
+                    }
+                    done();
+                })
+        });
+    });
+
 });
