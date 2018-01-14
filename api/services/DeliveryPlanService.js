@@ -119,6 +119,18 @@ var DeliveryPlanService = {
             for (var j = index1; j < index2; j++) {
                 waypts.push(waypoints[j]);
             }
+
+            let waypointsDTO = [];
+            let limit = 20;
+            if (waypts.length < limit) {
+                waypointsDTO = waypts;
+            } else {
+                let offset = ~~(waypts.length / limit);
+                for (let i = 0; i < limit; i++) {
+                    waypointsDTO.push(waypts[i * offset]);
+                }
+            }
+
             var pharmacy = {
                 name: current.name,
                 waypoint: 
@@ -127,7 +139,7 @@ var DeliveryPlanService = {
                         longitude: current.longitude,
                     },
                 time: current.time,
-                orderedWaypoints: waypts
+                orderedWaypoints: waypointsDTO
             };
             result.push(pharmacy);
         }
